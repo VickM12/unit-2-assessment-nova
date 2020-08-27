@@ -4,7 +4,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
-
+const PORT = process.env.PORT || 3000;
 
 ///Middleware////
 app.use(express.urlencoded({ extended: true }));
@@ -19,15 +19,15 @@ mongoose.connection.once('open', () => {
     console.log("connected to mongo");
 })
 
+//Controller
+const todoController = require('./controller/todos.js');
+app.use('/todo', todoController);
+
+
+
 ///Port Listener////
 //Heroku Port access///
-const PORT = process.env.PORT || 3000;
 
-
-
-
-
-// listen
 app.listen(PORT, () => {
     console.log('listening on: ' + PORT);
 });

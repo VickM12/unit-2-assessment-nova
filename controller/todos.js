@@ -21,7 +21,10 @@ router.delete('/:id', (req, res)=>{
 });
 
 router.put('/:id', (req, res)=>{
-    req.body.isDone = req.body.isDone ==='on' ? true: false;
+    if (req.body.isDone ==="on"){
+        req.body.isDone= true;
+    }else {req.body.isDone = false;
+    }
 })
 
 router.post('/', (req, res)=>{
@@ -37,6 +40,7 @@ router.post('/', (req, res)=>{
     ToDo.create(task, (err, newTask)=>{
         console.log(err);
         console.log(newTask);
+        res.redirect('/todo')
     })
 })
 

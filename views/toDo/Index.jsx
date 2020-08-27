@@ -15,7 +15,9 @@ class Index extends React.Component{
                 <div>
                     <h1>To Do List</h1>
                     <h3 id="none">There are no ToDos yet!</h3>
-
+                    <if condition= {toDo.length > 0}>
+                    
+                    </if>
                 </div>
             )};
 };

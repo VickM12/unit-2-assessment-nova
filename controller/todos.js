@@ -2,32 +2,35 @@ const express= require ('express');
 const router = express.Router()
 const ToDo = require('../model/todo.js')
 
-router.get('/', (req, res)=>{
-    ToDo.find({}, (error, allToDos) =>{
-        res.render('toDo/Index', {
-            toDo: allToDos
+router.get('/', (req, res) => {
+    ToDo.find({}, (error, allToDos) => {
+        // TODO: In the future, go back and add error handling after 
+        // hitting MVP requirements
+
+        res.render('todos/Index', {
+            toDos: allToDos
         })
     })
 });
 
-router.get('/new', (req, res)=>{
-    res.render('toDo/New');
+router.get('/new', (req, res) => {
+    res.render('todos/New');
 })
 
-router.delete('/:id', (req, res)=>{
-    ToDo.findByIdAndRemove(req.params.id, (err, toDo)=>{
-        res.redirect('/todo')
+router.delete('/:id', (req, res) => {
+    ToDo.findByIdAndRemove(req.params.id, (err, toDo) => {
+        res.redirect('/todos')
     });
 });
 
-router.put('/:id', (req, res)=>{
+router.put('/:id', (req, res) => {
     if (req.body.isDone ==="on"){
         req.body.isDone= true;
     }else {req.body.isDone = false;
     }
 })
 
-router.post('/', (req, res)=>{
+router.post('/', (req, res) => {
     if (req.body.isDone ==="on"){
         req.body.isDone= true;
     }else {req.body.isDone = false;
@@ -37,24 +40,24 @@ router.post('/', (req, res)=>{
         isDone:req.body.isDone
     }
 
-    ToDo.create(task, (err, newTask)=>{
+    ToDo.create(task, (err, newTask) => {
         console.log(err);
         console.log(newTask);
-        res.redirect('/todo')
+        res.redirect('/todos')
     })
 })
 
-router.get('/:id/edit', (req, res)=>{
-   ToDo.findById(req.params.id, (err, foundToDo) =>{
-       res.render('/toDo/Edit', {
+router.get('/:id/edit', (req, res) => {
+   ToDo.findById(req.params.id, (err, foundToDo) => {
+       res.render('/todos/Edit', {
            toDo: foundToDo
        });
     });
 });
 
-router.get('/:id', (req, res)=>{
-   ToDo.findById(req.params.id, (err, foundToDo)=>{
-    res.render('toDo/Show',{
+router.get('/:id', (req, res) => {
+   ToDo.findById(req.params.id, (err, foundToDo) => {
+    res.render('todos/Show',{
         todo:foundToDo
         })
     })

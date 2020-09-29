@@ -21,9 +21,12 @@ mongoose.connection.once('open', () => {
 
 //Controller
 const todoController = require('./controller/todos.js');
-app.use('/todo', todoController);
+app.use('/todos', todoController);
 
-
+app.get("/", (req, res) => {
+    res.redirect("/todos")
+}
+)
 
 ///Port Listener////
 //Heroku Port access///
